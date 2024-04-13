@@ -26,7 +26,7 @@ def get_package_dir() -> Dict[str, str]:
     return {"": "src"}
 
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 requirements = ["requests", "pydantic>=2", "mujson", "pyproj"]
 test_requirements = [
     "black>=19.10b0",
@@ -49,7 +49,7 @@ setup(
     name=EGG_NAME,
     version=__version__,
     python_requires=">={}.{}".format(*REQUIRED_PYTHON),
-    url="https://github.com/cbrand/mapi",
+    url="https://github.com/cbrand/m_car_api",
     author="Christoph Brand",
     author_email="christoph@brand.rest",
     description="",
