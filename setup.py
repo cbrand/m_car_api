@@ -26,7 +26,7 @@ def get_package_dir() -> Dict[str, str]:
     return {"": "src"}
 
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 requirements = ["requests", "pydantic>=2", "mujson", "pyproj"]
 test_requirements = [
     "black>=19.10b0",

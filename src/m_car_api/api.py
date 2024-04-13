@@ -123,7 +123,7 @@ class MApi:
         latitude_delta: float,
         longitude_delta: float,
         query: VehicleQuery | None = None,
-    ) -> dict[str, Any]:
+    ) -> list[Vehicle]:
         return self.vehicles_return(
             lat=lat,
             lon=lon,
@@ -149,7 +149,7 @@ class MApi:
 
     def vehicles_meters_around_location(
         self, lat: float, lon: float, meters: float, query: VehicleQuery | None = None
-    ) -> dict[str, Any]:
+    ) -> list[Vehicle]:
         return self.vehicles_return_meters_around_location(
             lat=lat,
             lon=lon,
