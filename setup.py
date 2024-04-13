@@ -27,7 +27,9 @@ def get_package_dir() -> Dict[str, str]:
 
 
 __version__ = "1.0.2"
-requirements = ["requests", "pydantic>=2", "mujson", "pyproj"]
+requirements = ["requests", "mujson", "pyproj", "pydantic"]
+pydantic_1 = ["pydantic>=1,<2", "pydantic_computed"]
+pydantic_2 = ["pydantic>=2,<3"]
 test_requirements = [
     "black>=19.10b0",
     "coverage>=5.1,<7",
@@ -72,7 +74,11 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    extras_require={"test": test_requirements},
+    extras_require={
+        "test": test_requirements,
+        "pydantic_1": pydantic_1,
+        "pydantic_2": pydantic_2,
+    },
     project_urls={"GitHub": "https://github.com/cbrand/m_car_api"},
     namespace_packages=list_namespace_packages(),
 )

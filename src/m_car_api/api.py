@@ -1,7 +1,6 @@
 from __future__ import annotations
-from typing import Any
+import mujson
 import requests
-from base64 import b64decode
 from urllib.parse import urljoin
 from pyproj import Geod
 
@@ -11,7 +10,7 @@ from m_car_api.objects import (
     Vehicle,
     VehicleQuery,
     VehicleReturn,
-    APIReturn,
+    parse_vehicles_payload,
 )
 
 geod = Geod(ellps="WGS84")
@@ -65,7 +64,8 @@ class VehiclesSearchAPI(SubAPI):
         return response.text
 
     def vehicles_return(self) -> VehicleReturn:
-        result = APIReturn[VehicleReturn].model_validate_json(self.raw_json_response())
+        payload = mujson.loads(self.raw_json_response())
+        result = parse_vehicles_payload(payload)
         if result.result != "OK":
             raise ValueError(result.message)
         return result.data
