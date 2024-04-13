@@ -1,8 +1,11 @@
 from __future__ import annotations
-import mujson
+
+try:
+    import mujson
+except ImportError:
+    import json as mujson
 import requests
 from urllib.parse import urljoin
-from pyproj import Geod
 
 from m_car_api.const import U_HEL_URL_PATH, V_URL_PATH, DEFAULT_ROOT_URL
 from m_car_api.objects import (
@@ -12,8 +15,7 @@ from m_car_api.objects import (
     VehicleReturn,
     parse_vehicles_payload,
 )
-
-geod = Geod(ellps="WGS84")
+from m_car_api.geo import get_bounding_box
 
 
 class SubAPI:
@@ -135,8 +137,9 @@ class MApi:
     def vehicles_return_meters_around_location(
         self, lat: float, lon: float, meters: float, query: VehicleQuery | None = None
     ) -> VehicleReturn:
-        lon_top_left, lat_top_left, _ = geod.fwd(lon, lat, 315, meters)
-        lon_bottom_right, lat_bottom_right, _ = geod.fwd(lon, lat, 135, meters)
+        lon_top_left, lat_top_left, lon_bottom_right, lat_bottom_right = (
+            get_bounding_box(lat=lat, lon=lon, meters=meters)
+        )
         lat_delta = abs(lat_top_left - lat_bottom_right)
         lon_delta = abs(lon_top_left - lon_bottom_right)
         return self.vehicles_return(
