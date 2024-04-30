@@ -217,7 +217,9 @@ class Vehicle(BaseModel):
 
     @computed_field
     @property
-    def city_to_city_options(self) -> CityToCityOptions:
+    def city_to_city_options(self) -> CityToCityOptions | None:
+        if self.city_to_city_options_string is None:
+            return None
         return CityToCityOptions.model_validate_json(self.city_to_city_options_string)
 
     json_vehicle_damages_input: str | None = Field(

@@ -242,12 +242,14 @@ class Vehicle(BaseModel):
         alias="CityToCityOptions", exclude=True
     )
 
-    city_to_city_options: Computed[CityToCityOptions]
+    city_to_city_options: Computed[CityToCityOptions | None]
 
     @computed("city_to_city_options")
     def compute_city_to_city_options(
         city_to_city_options_string: str, **kwargs: Any
-    ) -> CityToCityOptions:
+    ) -> CityToCityOptions | None:
+        if city_to_city_options_string is None:
+            return None
         payload = mujson.loads(city_to_city_options_string)
         return CityToCityOptions.parse_obj(payload)
 
