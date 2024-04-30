@@ -26,7 +26,7 @@ def get_package_dir() -> Dict[str, str]:
     return {"": "src"}
 
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 requirements = ["requests", "mujson", "pydantic"]
 pydantic_1 = ["pydantic>=1,<2", "pydantic_computed"]
 pydantic_2 = ["pydantic>=2,<3"]
